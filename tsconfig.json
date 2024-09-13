@@ -6,17 +6,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "pretty": true,
-    "declaration": true,
+    "skipLibCheck": true,
     "sourceMap": true,
-    "lib": [
-      "es2017",
-      "esnext.asynciterable",
-      "dom"
-    ],
+    "esModuleInterop": true,
+    "lib": ["es2017", "esnext.asynciterable", "dom"],
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": [
-    "./src/**/*.ts"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.d.ts"]
 }
