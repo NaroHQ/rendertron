@@ -2,7 +2,7 @@
 set -e
 
 npm install
-npx playwright install --with-deps chromium
+npx playwright install chromium
 
 # Store/pull Playwright cache with build cache
 if [[ ! -d $PLAYWRIGHT_BROWSERS_PATH ]]; then 
