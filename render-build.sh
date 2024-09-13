@@ -12,3 +12,5 @@ else
   echo "...Storing Playwright Cache in Build Cache" 
   cp -R $PLAYWRIGHT_BROWSERS_PATH $XDG_CACHE_HOME
 fi
+
+npm run build
