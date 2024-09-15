@@ -1,11 +1,12 @@
+import "./sentry";
+
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import koaCompress from "koa-compress";
 import route from "koa-route";
-import koaSend from "koa-send";
 import koaLogger from "koa-logger";
-import path from "path";
 import url from "url";
+import * as Sentry from "@sentry/node";
 
 import { Renderer, ScreenshotError } from "./renderer";
 import { Config, ConfigManager } from "./config";
@@ -28,19 +29,14 @@ export class Rendertron {
 
     this.renderer = new Renderer(this.config);
 
+    Sentry.setupKoaErrorHandler(this.app);
+
     this.app.use(koaLogger());
 
     this.app.use(koaCompress());
 
     this.app.use(bodyParser());
 
-    this.app.use(
-      route.get("/", async (ctx: Koa.Context) => {
-        await koaSend(ctx, "index.html", {
-          root: path.resolve(__dirname, "../src"),
-        });
-      })
-    );
     this.app.use(
       route.get("/_ah/health", (ctx: Koa.Context) => (ctx.body = "OK"))
     );
