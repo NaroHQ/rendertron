@@ -122,7 +122,7 @@ export class DatastoreCache {
       await next();
 
       if (ctx.status === 200) {
-        cacheContent(key, ctx.response.headers, ctx.body);
+        cacheContent(key, ctx.response.headers, ctx.body as Buffer);
       }
     }.bind(this);
   }

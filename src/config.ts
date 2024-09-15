@@ -19,7 +19,7 @@
 
 "use strict";
 
-import fse from "fs-extra";
+import fs from "fs";
 import path from "path";
 
 const CONFIG_PATH = path.resolve(__dirname, "../config.json");
@@ -43,11 +43,16 @@ export class ConfigManager {
 
   static async getConfiguration(): Promise<Config> {
     // Load config.json if it exists.
-    if (fse.pathExistsSync(CONFIG_PATH)) {
-      ConfigManager.config = Object.assign(
-        ConfigManager.config,
-        await fse.readJson(CONFIG_PATH)
-      );
+    if (fs.existsSync(CONFIG_PATH)) {
+      try {
+        const data = await fs.promises.readFile(CONFIG_PATH, "utf-8");
+        ConfigManager.config = Object.assign(
+          ConfigManager.config,
+          JSON.parse(data as string)
+        );
+      } catch (error) {
+        console.error("Error loading config.json", error);
+      }
     }
     return ConfigManager.config;
   }

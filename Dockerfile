@@ -1,6 +1,18 @@
 # Build Environment: Node + Playwright
-FROM node:20
+FROM node:fermium-slim
 FROM mcr.microsoft.com/playwright:focal
+
+# Install build tools and additional dependencies
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  python3 \
+  libtool \
+  autoconf \
+  automake \
+  g++ \
+  libssl-dev \
+  pkg-config \
+  && rm -rf /var/lib/apt/lists/*
 
 # Env
 WORKDIR /app

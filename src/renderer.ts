@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+import { chromium, PageScreenshotOptions } from "playwright";
 import url from "url";
 
 import { Config } from "./config";
@@ -196,7 +196,9 @@ export class Renderer {
         type: "jpeg",
       });
 
-      const buffer = await page.screenshot(screenshotOptions);
+      const buffer = await page.screenshot(
+        screenshotOptions as PageScreenshotOptions
+      );
       await page.close();
       await context.close();
       return buffer;
