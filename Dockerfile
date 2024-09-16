@@ -1,5 +1,6 @@
 # Build Environment: Node + Playwright
 FROM node:fermium-slim
+FROM mcr.microsoft.com/playwright:focal
 
 # Install build tools and additional dependencies
 RUN apt-get update && apt-get install -y \
